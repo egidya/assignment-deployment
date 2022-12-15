@@ -39,6 +39,7 @@ const Photos = () => {
         .then(json => {
         setPhotos(json)
         })
+        .catch(error => setError(error))
         .finally(()=>setLoading(false))
   
 
