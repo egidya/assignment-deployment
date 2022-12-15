@@ -23,25 +23,31 @@ const Photos = () => {
   useEffect(() => {
     setLoading(true);
     // TODO: answer here
-    async function fetchData(){
-      try {
-        const data = await (
-          await fetch(`http://localhost:3001/photos?_sort=id&_order=${sort}&q=${search}`)
-        ).json(); 
-        setPhotos(data);
-      } catch (error) {
-        setError(true);
-      }
-    }
-    fetchData();
-    setLoading(false);
+    // async function fetchData(){
+    //   try {
+    //     const data = await (
+    //       await fetch(`http://localhost:3001/photos?_sort=id&_order=${sort}&q=${search}`)
+    //     ).json(); 
+    //     setPhotos(data);
+    //   } catch (error) {
+    //     setError(true);
+    //   }
+    // }
+    // fetchData();
+    fetch(`https://gallery-app-server.vercel.app/photos?_sort=id&_order=${sort}&q=${search}`)
+        .then(result => result.json())
+        .then(json => {
+        setPhotos(json)
+        })
+        .finally(()=>setLoading(false))
+  
 
   }, [sort, submited]);
 
   useEffect(() => {
     setLoading(true);
  
-    fetch(`http://localhost:3001/photos`)
+    fetch(`https://gallery-app-server.vercel.app/photos`)
       .then((response) => response.json())
       .then((data) => setPhotos(data))
       .then(() => setLoading(false));
